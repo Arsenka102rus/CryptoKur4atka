@@ -12,3 +12,6 @@ def get_images():
     clear_pictures = [item['src'] for item in pictures]
     return random.choice(clear_pictures)
 
+
+get_images()
+
