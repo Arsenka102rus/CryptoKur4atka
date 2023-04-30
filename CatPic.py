@@ -14,10 +14,9 @@ def get_images():
 
 
 def main():
-    total = get_images()
-    print(total)
+    images = get_images()
+    print(images)
 
 
 if __name__ == '__main__':
     main()
-
