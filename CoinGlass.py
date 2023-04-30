@@ -14,3 +14,12 @@ def get_data(timeframe='h1'):
         return response['data'][0]['longRate'], response['data'][0]['shortRate']
     except Exception as error:
         return error
+
+
+def main():
+    total = get_data()
+    print(total)
+
+
+if __name__ == '__main__':
+    main()
