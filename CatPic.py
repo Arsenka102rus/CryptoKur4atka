@@ -13,5 +13,10 @@ def get_images():
     return random.choice(clear_pictures)
 
 
-get_images()
+def main():
+    images = get_images()
+    print(images)
 
+    
+if __name__ == '__main__':
+    main()
