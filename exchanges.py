@@ -7,64 +7,53 @@ def binance_get_price(coin='BTC'):
     symbol = coin + USDT
     try:
         response = requests.get(f'https://api.binance.com/api/v3/ticker/price?symbol={symbol}').json()
+        return round(float(response['price']), 2)
     except Exception as error:
         print(f"Ошибка {error} при парсинге")
-        response = 'ERROR'
-    if response != 'ERROR':
-        return round(float(response['price']), 2)
-    return -1
+        return -1
 
 
 def coinbase_get_price(coin='BTC'):
     symbol = coin + "-" + "USD"
     try:
         response = requests.get(f"https://api.coinbase.com/v2/prices/{symbol}/spot").json()
+        return round(float(response['data']['amount']), 2)
     except Exception as error:
         print(f"Ошибка {error} при парсинге")
-        response = 'ERROR'
-    if response != 'ERROR':
-        return round(float(response['data']['amount']), 2)
-    return -1
+        return -1
 
 
 def kraken_get_price(coin='BTC'):
     symbol = coin + USDT
     try:
         response = requests.get(f"https://api.kraken.com/0/public/Ticker?pair={symbol}").json()
-    except Exception as error:
-        print(f"Ошибка {error} при парсинге")
-        response = 'ERROR'
-    if response != 'ERROR':
-        # return round(float(response['amount']), 2)
         if coin != 'BTC':
             print(response['result'][symbol]['c'][0])
             return response['result'][symbol]['c'][0]
         return round(float(response['result']['XBTUSDT']['c'][0]), 2)
-    return -1
+    except Exception as error:
+        print(f"Ошибка {error} при парсинге")
+        return -1
 
 
 def kucoin_get_price(coin='BTC'):
     symbol = coin + "-" + USDT
     try:
         response = requests.get(f"https://api.kucoin.com/api/v1/market/orderbook/level1?symbol={symbol}").json()
+        return round(float(response['data']['price']), 2)
     except Exception as error:
         print(f"Ошибка {error} при парсинге")
-        response = 'ERROR'
-    if response != 'ERROR':
-        return round(float(response['data']['price']), 2)
-    return -1
+        return -1
 
 
 def bybit_get_price(coin='BTC'):
     symbol = coin + USDT
     try:
         response = requests.get(f"https://api.bybit.com/v5/market/tickers?category=spot&symbol={symbol}").json()
+        return round(float(response['result']['list'][0]['lastPrice']), 2)
     except Exception as error:
         print(f"Ошибка {error} при парсинге")
-        response = 'ERROR'
-    if response != 'ERROR':
-        return round(float(response['result']['list'][0]['lastPrice']), 2)
-    return -1
+        return -1
 
 
 def bitfinex_get_price(coin='BTC'):
@@ -72,12 +61,10 @@ def bitfinex_get_price(coin='BTC'):
     try:
         url = "https://api-pub.bitfinex.com/v2/"
         response = requests.get(url + f'ticker/t{symbol}').json()
+        return round(float(response[6]), 2)
     except Exception as error:
         print(f"Ошибка {error} при парсинге")
-        response = 'ERROR'
-    if response != 'ERROR':
-        return round(float(response[6]), 2)
-    return -1
+        return -1
 
 
 def gateio_get_price(coin="BTC"):
@@ -88,12 +75,10 @@ def gateio_get_price(coin="BTC"):
             'currency_pair': symbol
         }
         response = requests.get(url + f'/spot/tickers', params=params).json()
+        return round(float(response[0]['last']), 2)
     except Exception as error:
         print(f"Ошибка {error} при парсинге")
-        response = 'ERROR'
-    if response != 'ERROR':
-        return round(float(response[0]['last']), 2)
-    return -1
+        return -1
 
 
 def all_ex_price(coin='BTC'):
